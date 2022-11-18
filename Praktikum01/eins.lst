@@ -1,0 +1,21 @@
+     1                                  
+     2                                  ; Mein erster Versuch
+     3                                  
+     4                                  	org 100h
+     5                                  
+     6                                  start:
+     7 00000000 E400                    	in al,0		; Einlesen Schalterstellung
+     8 00000002 E600                    	out 0,al 	; auf LED-Zeile ausgeben
+     9 00000004 B9FFFF                  	mov cx, -1  ; Zaehler fuer Zeitschleife laden
+    10                                  schl1:
+    11 00000007 E2FE                    	loop schl1	; loop: zwei Befehle in einem
+    12                                  				; Schritt 1: Dekrementiere <CX>
+    13                                  				; Schritt 2: Sprung, wenn <CX> ungleich 0
+    14 00000009 B000                    	mov al,0
+    15 0000000B E600                    	out 00,al	; alle LED "ausschalten"
+    16 0000000D B9FFFF                  	mov cx,-1
+    17                                  schl2:
+    18 00000010 E2FE                    	loop schl2
+    19 00000012 EBEC                    	jmp start	; Endlosschleife
+    20                                  	
+    21                                  	

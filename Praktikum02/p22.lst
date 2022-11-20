@@ -1,0 +1,18 @@
+     1                                  
+     2                                  org 100h
+     3                                  
+     4                                  ; PRAKTIKUM 2: Aufgabe p22
+     5                                  ; Auf der LED-Reihe soll abwechselnd sichtbar zwischen den LEDs
+     6                                  ; 6-4-2-0 und 7-5-3-1 umgeschaltet werden
+     7                                  
+     8 00000000 B85500                  start: MOV AX, 01010101b	; Wert in AX kopieren
+     9 00000003 E700                    	   OUT 0,AX				; Wert in AX an LEDs ausgeben (hier: LEDs 6-4-2-0)
+    10 00000005 E80900                  	   CALL warte			; Aufruf Unterprogramm
+    11 00000008 F7D0                    	   NOT AX				; Wert in AX invertieren
+    12 0000000A E700                    	   OUT 0,AX				; Wert in AX an LEDs ausgeben (hier: LEDs 7-5-3-1)
+    13 0000000C E80200                  	   CALL warte
+    14 0000000F EBEF                    	   jmp start
+    15                                  	   
+    16 00000011 31C9                    warte: XOR CX,CX			; Warte-Unterprogramm
+    17 00000013 E2FE                    	   schl: loop schl
+    18 00000015 C3                      	   RET

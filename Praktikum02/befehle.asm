@@ -41,10 +41,10 @@ schl:	rol al,1			; schl: ... Schleifenbeginn
 		shr bl,cl			; Registerinhalt wird Inhalt-Des-Registers-CL-mal nach rechts geschoben
 		
 		mov al,-1
-		out 90h,al			; Ansteuerung 7-Segment-Anzeige (7)
+		out 90h,al			; Ansteuerung 7-Segment-Anzeige je nach Registerinhalt AL
 		not al				
-		out 92h,al			; Ansteuerung 7-Segment-Anzeige (6)
-		out 94h,al			; Ansteuerung 7-Segment-Anzeige (5)
+		out 92h,al			
+		out 94h,al			
        
 		jmp start			; springen zu start (erzeugt Endlosschleife)
 

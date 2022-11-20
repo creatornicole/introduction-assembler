@@ -1,0 +1,17 @@
+     1                                  
+     2                                  org 100h
+     3                                  
+     4                                  ; PRAKTIKUM 2: Aufgabe p21
+     5                                  ; Auf der LED-Reihe sollen drei nebeneinanderliegende LED sichtbar blinken.
+     6                                  
+     7 00000000 B007                    start: MOV AL,0111b  ; kopiere Werte in AL (drei nebeneinanderliegende sollen leuchten)
+     8 00000002 E600                    	   OUT 0,AL   	 ; gebe Inhalt von AL an LEDs aus
+     9 00000004 E80900                  	   CALL warte 	 ; Aufruf Unterprogramm warte
+    10 00000007 B000                    	   MOV AL,0	  	 ; passe Wert in AL an (alle LEDs wieder aus)
+    11 00000009 E600                    	   OUT 0,AL   	 ; gebe Inhalt von AL an LEDs aus
+    12 0000000B E80200                  	   CALL warte
+    13 0000000E EBF0                    	   jmp start  	 ; fange von vorn an
+    14                                  	   
+    15 00000010 31C9                    warte: XOR CX,CX
+    16 00000012 E2FE                    	   schlf: loop schlf
+    17 00000014 C3                      	   RET		  	 ; zu Hauptprogramm zurueckkehren

@@ -1,0 +1,19 @@
+     1                                  
+     2                                  org 100h
+     3                                  
+     4                                  ; PRAKTIKUM 2: Aufgabe p23
+     5                                  ; Eine einzelne leuchtende LED soll in der LED-Reihe fortlaufend sichtbar
+     6                                  ; von links nach rechts "wandern"
+     7                                  
+     8 00000000 B88000                  start: MOV AX,10000000b	; Wert in AX kopieren (Ausgabe LED 7)
+     9                                  ausgabe: 
+    10 00000003 E700                    	   OUT 0,AX		; Wert aus AX an LED-Ports ausgeben
+    11 00000005 E80600                  	   CALL warte	; Aufrufen Warte-Unterprogramm
+    12 00000008 D1D8                    	   RCR AX,1		; Registerinhalt einmal nach links rotieren
+    13                                  					; (um naechste LED im naechsten Schritt auszugeben)
+    14 0000000A 72F4                    	   jc start		; wenn CF=1 dann zu start springen (erneuter Start mit LED 7)
+    15 0000000C EBF5                    	   jmp ausgabe	; sonst zu ausgabe springen und Ausgabe LED rechts daneben(erzeugt Endlosschleife)
+    16                                  	   
+    17 0000000E 31C9                    warte: XOR CX,CX			; Unterprogramm Wartefunktion
+    18 00000010 E2FE                    	   schlf: loop schlf
+    19 00000012 C3                      	   RET

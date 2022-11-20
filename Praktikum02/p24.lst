@@ -1,0 +1,21 @@
+     1                                  
+     2                                  org 100h
+     3                                  
+     4                                  ; PRAKTIKUM 2: Aufgabe p24
+     5                                  ; Loeschen Sie die gesamte 7-Segment-Anzeige. Danach soll auf einer Stelle
+     6                                  ; dieser Anzeige sichtbar abwechselnd eine "0" und eine "1" angezeigt werden.
+     7                                  
+     8 00000000 CD06                    INT 6 				; Software-Interrupt Routine des Systemprogramms des SBC
+     9                                  					; bewirkt Loeschen des gesamten Displays
+    10 00000002 B83F00                  ausgabe: MOV AX,00111111b 	; Einlesen Wert um 0 auf Displaystelle auszugeben
+    11 00000005 E790                    		OUT 90h,AX			; Ausgabe dieser 0 an Port 90h
+    12 00000007 E80A00                  		CALL warte 			; Aufruf Warte-Unterprogramm
+    13 0000000A B80600                  		MOV AX,00000110b 	; Einlesen Wert um 1 auf Displaystelle auszugeben
+    14 0000000D E790                    		OUT 90h,AX			; Ausgabe dieser 1 an Port 90h
+    15 0000000F E80200                  		CALL warte
+    16 00000012 EBEE                    		jmp ausgabe			; springe zu ausgabe (erzeugt Endlosschleife)
+    17                                  
+    18                                  
+    19 00000014 31DB                    warte: XOR BX,BX	; Unterprogramm Wartefunktion
+    20 00000016 E2FE                    	   schlf: loop schlf
+    21 00000018 C3                      	   RET

@@ -1,0 +1,52 @@
+     1                                  	ORG 100H
+     2                                  
+     3                                  ;----------------------------------------
+     4                                  
+     5                                  ; PRAKTIKUM 2:
+     6                                  ; Grundlegende Befehle
+     7                                  
+     8                                  start:
+     9 00000000 B055                    		mov al,01010101b	; kopiere Konstante in Ziel-Register
+    10 00000002 B4AA                    		mov ah,0aah
+    11 00000004 89C1                    		mov cx,ax			; kopiere Inhalt aus Quell-Register in Ziel-Register
+    12                                  
+    13 00000006 A25001                  		mov [0150h],al		; kopiere Inhalt aus Quell-Register in Adresse
+    14 00000009 890E5201                		mov [0152h],cx
+    15                                  
+    16 0000000D 00CD                    		add ch,cl			; addiere Inhalt von beiden Registern
+    17                                  							; ueberschreibe Ziel-Register mit Ergebnis
+    18                                  
+    19 0000000F BB0200                  		mov bx,2
+    20 00000012 4B                      		dec bx				; Inhalt des Registers wird um eins erniedrigt
+    21 00000013 4B                      		dec bx
+    22 00000014 4B                      		dec bx
+    23                                  
+    24 00000015 BA0077                  		mov dx,7700h
+    25 00000018 F6D7                    		not bh				; Registerinhalt wird bitweise invertiert
+    26 0000001A 08DA                    		or  dl,bl			; Registerinhalte werden bitweise ODER-verknuepft
+    27                                  							; Ziel-Register wird mit Ergebnis ueberschrieben
+    28 0000001C 80E6CC                  		and dh,11001100b	; Registerinhalte werden bitweise UND-verknuepft
+    29                                  							; Ziel-Register wird mit Ergebnis ueberschrieben
+    30                                  							
+    31 0000001F B006                    		mov al,00000110b
+    32 00000021 B90300                  		mov cx,3
+    33 00000024 D0C0                    schl:	rol al,1			; schl: ... Schleifenbeginn
+    34                                  							; Registerinhalt wird einmal nach links rotiert
+    35 00000026 E600                    		out 0,al			; Ausgabe/Ansteuerung LED
+    36 00000028 E2FA                    		loop schl			; Registerinhalt von CX wird dekrementiert
+    37                                  							; zu <shortlabel> springen solange CX != 0
+    38                                         
+    39 0000002A B306                    		mov bl,00000110b
+    40 0000002C B103                    		mov cl,3
+    41 0000002E D2EB                    		shr bl,cl			; Registerinhalt wird Inhalt-Des-Registers-CL-mal nach rechts geschoben
+    42                                  		
+    43 00000030 B0FF                    		mov al,-1
+    44 00000032 E690                    		out 90h,al			; Ansteuerung 7-Segment-Anzeige (7)
+    45 00000034 F6D0                    		not al				
+    46 00000036 E692                    		out 92h,al			; Ansteuerung 7-Segment-Anzeige (6)
+    47 00000038 E694                    		out 94h,al			; Ansteuerung 7-Segment-Anzeige (5)
+    48                                         
+    49 0000003A EBC4                    		jmp start			; springen zu start (erzeugt Endlosschleife)
+    50                                  
+    51                                  
+    52                                  ;----------------------------------------

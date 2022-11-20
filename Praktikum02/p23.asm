@@ -1,5 +1,5 @@
 
-org 100h
+org 100h ; Startpunkt Programm in Speicher
 
 ; PRAKTIKUM 2: Aufgabe p23
 ; Eine einzelne leuchtende LED soll in der LED-Reihe fortlaufend sichtbar

@@ -1,5 +1,5 @@
 
-org 100h
+org 100h ; Startpunkt Programm in Speicher
 
 ; PRAKTIKUM 2: Aufgabe p21
 ; Auf der LED-Reihe sollen drei nebeneinanderliegende LED sichtbar blinken.

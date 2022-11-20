@@ -1,5 +1,5 @@
 
-org 100h
+org 100h ; Startpunkt Programm in Speicher
 
 ; PRAKTIKUM 2: Aufgabe p22
 ; Auf der LED-Reihe soll abwechselnd sichtbar zwischen den LEDs

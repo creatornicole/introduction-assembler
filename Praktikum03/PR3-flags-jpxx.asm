@@ -20,12 +20,19 @@ start:
 eingc:    in   al,0    ; Schalter abfragen
           cmp  al,9
           jc  eingc    ; bei welchen Eingabewerten wird gesprungen ?
+					   ; bei Eingabewerten, die Carry ausloesen
+					   ; sind all die Eingabewerte, die Bit 3-7 == 0
+					   ; d.h. gesprungen wird, wenn Button 3-7 aus sind
+					   ; Button 0-2 beliebig
 
 eingt:    in   al,0    ; Schalter abfragen
           test al,81h
           jnz  eingt   ; bei welchen Eingabewerten wird gesprungen ?
-
-          nop
+					   ; bei Eingabewerten, die nicht 0 ergeben
+					   ; sind all die Eingabewerte, bei denen (Bit7 == 1) | (Bit0 == 1)
+					   ; d.h. Schalter ganz rechts und/oder Schalter ganz links muessen an sein
+					    
+          nop		   ; Leerbefehl, drei Takte lang wird nichts getan
           jmp start
 
 ;----------------------------------------

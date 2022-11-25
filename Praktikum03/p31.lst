@@ -1,0 +1,19 @@
+     1                                  
+     2                                  org 100h ; Startpunkt Programm in Speicher
+     3                                  
+     4                                  ; PRAKTIKUM 3: Aufgabe p31
+     5                                  ; Alle LEDs sollen nur dann leuchten, wenn der Schalter S0 eingeschaltet ist.
+     6                                  
+     7                                  start:
+     8 00000000 E400                    	in al,0			; Schalterstellung abfragen
+     9 00000002 D0C8                    	ror al,1		; Registerinhalt AL um eins nach rechts rotieren
+    10                                  					; d.h. wenn Schalter S0 an, dann CF == 1, sonst CF == 0
+    11 00000004 7206                    	jc ledan		; Wenn CF = 1, dann springe zu ledan
+    12 00000006 B000                    	mov al,00		; Wert in AL kopieren
+    13 00000008 E600                    	out 0,al		; alle LEDs ausschalten
+    14 0000000A EBF4                    	jmp start
+    15                                  	
+    16                                  ledan:
+    17 0000000C B0FF                    	mov al,0FFh		; Wert in AL kopieren
+    18 0000000E E600                    	out 0,al		; Wert aus AL an LED-Port ausgeben -> alle LEDs an
+    19                                  	

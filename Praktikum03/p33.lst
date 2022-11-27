@@ -1,0 +1,49 @@
+     1                                  
+     2                                  org 100h	; Startpunkt Programm in Speicher
+     3                                  
+     4                                  ; PRAKTIKUM 3: Aufgabe p33
+     5                                  ; Alle LEDs sollen sichtbar blinken, wenn der Schalter S0 eingeschaltet ist.
+     6                                  ; Der Schalter S7 soll zusaetzlich die Blinkfrequenz (schnell und langsam)
+     7                                  
+     8                                  ; Bedingungen:
+     9                                  ; - fuer die Auswertung beider Schalter soll nur einmal eingelesen werden
+    10                                  ; - das Programm soll unabhaengig von der Stellung der anderen Schalter funktionieren
+    11                                  ; - entwerfen Sie zu Beginn einen Programmablaufplan und setzen Sie diesen um
+    12                                  
+    13                                  start:
+    14 00000000 E400                    	in al,0			; Schalter einlesen
+    15 00000002 A801                    	test al,1		
+    16 00000004 7502                    	jnz blink		; wenn Schalter S0 an, blink
+    17 00000006 EBF8                    	jmp start
+    18                                  	
+    19                                  blink:				; laesst LEDs blinken
+    20 00000008 A880                    	test al,128		
+    21 0000000A 7510                    	jnz blinkSchnell; wenn Schalter S7 an, dann blinke schnell
+    22 0000000C B0FF                    	mov al,0ffh
+    23 0000000E E600                    	out 0,al		; alle LEDs an
+    24 00000010 E81E00                  	call warteLang	; laenger warten
+    25 00000013 B000                    	mov al,0
+    26 00000015 E600                    	out 0,al		; alle LEDs aus
+    27 00000017 E81700                  	call warteLang	; laenger warten
+    28 0000001A EBE4                    	jmp start
+    29                                  	
+    30                                  blinkSchnell:		; laesst LEDs schneller blinken
+    31 0000001C B0FF                    	mov al,0ffh
+    32 0000001E E600                    	out 0,al		; alle LEDs an
+    33 00000020 E80900                  	call warteKurz	; kurz warten
+    34 00000023 B000                    	mov al,0
+    35 00000025 E600                    	out 0,al		; alle LEDs aus
+    36 00000027 E80200                  	call warteKurz	; kurz warten
+    37 0000002A EBD4                    	jmp start
+    38                                  	
+    39                                  warteKurz:			; Implementation einfacher Wartefunktion
+    40 0000002C 31C9                    	xor cx,cx
+    41                                  	schlf:
+    42 0000002E E2FE                    		loop schlf
+    43 00000030 C3                      	ret
+    44                                  	
+    45                                  warteLang:			; Implementation einfacher laengerer Wartefunktion
+    46 00000031 E8F8FF                  	call warteKurz 
+    47 00000034 E8F5FF                  	call warteKurz
+    48 00000037 C3                      	ret
+    49                                  	

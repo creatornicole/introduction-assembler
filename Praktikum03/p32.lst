@@ -1,0 +1,31 @@
+     1                                  
+     2                                  
+     3                                  org 100h	; Startpunkt Programm in Speicher
+     4                                  
+     5                                  ; PRAKTIKUM 3: Aufgabe p32
+     6                                  ; Auf der LED-Reihe soll eine einzelne LED fortlaufend hin und her "wandern".
+     7                                  
+     8 00000000 B001                    	mov al,1
+     9 00000002 E600                    	out 0,al		; LED0 anschalten
+    10                                  
+    11                                  rotateLeft:
+    12 00000004 D0C0                    	rol al,1		; rotiere Registerinhalt um eins nach links
+    13                                  					; Ziel: naechste LED anschalten, vorherige ausschalten
+    14 00000006 E81300                  	call warte
+    15 00000009 E600                    	out 0,al
+    16 0000000B A880                    	test al,128		; Maske erzeugen
+    17 0000000D 74F5                    	jz rotateLeft	; wenn LED7 nicht an, weiter nach links shiften
+    18                                  					; sonst Rotierrichtung aendern
+    19                                  rotateRight:
+    20 0000000F D0C8                    	ror al,1		; rotiere Registerinhalt um eins nach rechts
+    21 00000011 E80800                  	call warte
+    22 00000014 E600                    	out 0,al
+    23 00000016 A801                    	test al,1		; Maske erzeugen
+    24 00000018 74F5                    	jz rotateRight
+    25 0000001A EBE8                    	jmp rotateLeft	
+    26                                  	
+    27                                  warte:				; Implementation einfacher Wartefunktion
+    28 0000001C 31C9                    	xor cx,cx
+    29                                  	schlf:
+    30 0000001E E2FE                    		loop schlf
+    31 00000020 C3                      	ret

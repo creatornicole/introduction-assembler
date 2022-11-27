@@ -16,4 +16,5 @@ start:
 ledan:
 	mov al,0FFh		; Wert in AL kopieren
 	out 0,al		; Wert aus AL an LED-Port ausgeben -> alle LEDs an
+	jmp start
 	

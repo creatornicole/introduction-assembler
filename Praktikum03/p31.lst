@@ -16,4 +16,5 @@
     16                                  ledan:
     17 0000000C B0FF                    	mov al,0FFh		; Wert in AL kopieren
     18 0000000E E600                    	out 0,al		; Wert aus AL an LED-Port ausgeben -> alle LEDs an
-    19                                  	
+    19 00000010 EBEE                    	jmp start
+    20                                  	

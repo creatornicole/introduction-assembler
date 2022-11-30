@@ -1,0 +1,28 @@
+     1                                  
+     2                                  org 100h		; Startadresse Programm in Speicher
+     3                                  
+     4                                  ; PRAKTIKUM 3: Aufgabe p34
+     5                                  ; Auf den Stellen 3 und 4 der 7-Segment-Anzeige soll der Zustand
+     6                                  ; der Schalter S3 und S4 (jeweils "0" oder "1") angzeigt werden.
+     7                                  
+     8                                  ; PUSH und POP!!!
+     9                                  
+    10 00000000 CD06                    	int 6
+    11                                  start:
+    12 00000002 E400                    	in al,0			; Schalter einlesen
+    13                                  	
+    14 00000004 A808                    	test al,1000b	
+    15 00000006 7502                    	jnz schalteEins	
+    16 00000008 7406                    	jz schalteNull
+    17                                  	
+    18                                  schalteEins:
+    19 0000000A B006                    	mov al,110b
+    20 0000000C E696                    	out 96h,al
+    21 0000000E EBF2                    	jmp start
+    22                                  
+    23                                  schalteNull:
+    24 00000010 B03F                    	mov al,0011_1111b
+    25 00000012 E696                    	out 96h,al
+    26 00000014 EBEC                    	jmp start
+    27                                  	
+    28                                  	

@@ -5,22 +5,29 @@
 ; PRAKTIKUM 4:
 ; Adressierungsarten
 
-; Kommentieren (Beschreiben) Sie folgende Befehle bzw. Programmablaeufe!
-; Welche konkreten Zahlenwerte werden gelesen bzw. geschrieben?
+; Kommentieren (Beschreiben) Sie folgende Befehle bzw.
+; Programmablaeufe!
+; Welche konkreten Zahlenwerte werden gelesen bzw.
+; geschrieben?
 ; Was ist der Unterschied zwischen EQU und DB?
-; Wie zeigen sich die so definierten Werte im fertigen Maschinencode ?
+; Wie zeigen sich die so definierten Werte im fertigen
+; Maschinencode ?
 
 
 scha:	equ 0		;Adresse Schalter
 leds:	equ 0		;Adresse LEDs
 anz0:	equ 90h		;Adresse rechte 7-Segm-Anzeige
-anz1:   equ 92h     
+anz1:   equ 92h
 
 start:
+		;Durch welchen Zahlenwert wird beim Uebersetzen der 
+		;Variablenname ersetzt?
 		mov al,[vari8a]
 		not al
 		mov [vari8a],al
 
+		;Warum muss dem Uebersetzer in den folgenden Befehlen die
+		;Groesse des Operanden extra mitgeteilt werden?
 		mov byte [vari8b],88h
 		inc word [vari16]
 	
